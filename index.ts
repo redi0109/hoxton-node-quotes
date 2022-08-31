@@ -34,14 +34,37 @@ const quotes = [
 
 const app = express()
 app.use(cors())
+app.use(express.json())
 const port = 4000
 
 app.get('/', (req, res) => {
+  
   res.send('Quotes')
 })
 app.get('/quotes', (req, res) => {
     res.send(quotes)
   })
+
+  app.get("/random", (req, res) => {
+    const randomQuote = Math.floor(Math.random() * (quotes.length))
+    res.send(quotes[randomQuote])
+})
+
+  app.get("/quotes/:id", (req, res) => {
+    const id = Number(req.params.id)
+    const quote = quotes.find(item => item.id === id)
+
+    if (quote) {
+        res.send(quote)
+    }
+    else {
+        res.status(404).send({ error: "Item not found!" })
+    }
+
+})
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
