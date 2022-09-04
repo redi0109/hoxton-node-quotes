@@ -76,6 +76,37 @@ app.delete("/quotes/:id", (req, res) => {
   }
 });
 
+app.patch("/quotes/:id", (req, res) => {
+  let match = quotes.find((quote) => quote.id === Number(req.params.id));
+  if (match) {
+    if (req.body.age) {
+      match.author.age = req.body.age;
+    }
+    if (req.body.name) {
+      match.author.name = req.body.name;
+    }
+    if (req.body.quote) {
+      match.author.quote = req.body.quote;
+    }
+    if (req.body.image) {
+      match.author.image = req.body.image;
+    }
+    res.send(match);
+  } else {
+    res.status(404).send({ error: "Not Found" });
+  }
+});
+
+app.put("/quotes/:id", (req, res) => {
+  let match = quotes.find((quote) => quote.id === Number(req.params.id));
+
+  if (match) {
+    match = req.body;
+    res.send(match);
+  } else {
+    res.status(404).send({ error: "Not Found" });
+  }
+});
 
 
 app.listen(port, () => {
