@@ -64,6 +64,11 @@ app.post("/quotes", (req, res) => {
   }
 });
 
+app.delete("/quotes/:id", (req, res) => {
+  const id = Number(req.params.id)
+  const indexToDelete = quotes.findIndex(quote => quote.id === id)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
