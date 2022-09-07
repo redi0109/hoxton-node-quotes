@@ -88,7 +88,7 @@ const createAuthorsTable = db.prepare (`
   id INTEGER NOT NULL,
   name TEXT NOT NULL,
   age INTEGER NOT NULL,
-  image TEXT NOT NULL,
+  image TEXT,
   PRIMARY KEY (id)
  );
 `);
