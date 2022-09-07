@@ -82,3 +82,34 @@ const authors = [
       "https://imgs.search.brave.com/BHOaX1gaVlEWnev7GNBGdoGL2qC5quGoWhNRc9coAQw/rs:fit:1200:1200:1/g:ce/aHR0cDovL2J0aW1l/c2hlcmFsZC5jb20v/d3AtY29udGVudC91/cGxvYWRzLzIwMTcv/MDUvUm9vc2V2ZWx0/LTEuanBn",
   },
 ];
+
+const createAuthorsTable = db.prepare (`
+ CREATE TABLE IF NOT EXISTS authors (
+  id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  age INTEGER NOT NULL,
+  image TEXT NOT NULL,
+  PRIMARY KEY (id)
+ );
+`);
+
+createAuthorsTable.run();
+
+const deleteAllAuthors = db.prepare(`
+DELETE FROM authors
+`);
+
+deleteAllAuthors.run();
+
+const createAuthor = db.prepare(`
+INSERT INTO authors (name, age, image) VALUES (?, ?, ?)
+`);
+
+for (let author of authors) {
+  createAuthor.run(
+    author.name,
+    author.age,
+    author.image
+  )
+};
+
